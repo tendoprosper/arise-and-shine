@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member Login | SACCO</title>
+<style>
+:root{
+  --primary:#1e88e5;
+  --secondary:#22c55e;
+  --dark:#0f172a;
+  --light:#f8fafc;
+}
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:url('https://images.unsplash.com/photo-1605902711622-cfb43c44367f') center/cover fixed;
+  color:#fff;
+}
+header{
+  padding:20px;
+  text-align:center;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+}
+header h1{
+  margin:0;
+  font-size:2rem;
+  color:#38bdf8;
+}
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:20px;
+  padding:20px;
+}
+.card{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:15px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s ease;
+  border:2px solid rgba(255,255,255,0.3);
+}
+.card:hover{transform:translateY(-5px);}
+.profile-pic-card{
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(15px);
+  border-radius:15px;
+  padding:5px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.5);
+  display:inline-block;
+  margin-bottom:10px;
+}
+.profile-pic-card img{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #38bdf8;
+}
+.card h3{
+  margin:0;
+  font-size:1rem;
+  color:#000; /* name in black */
+  font-weight:600;
+}
+.search-container{
+  padding:15px 20px;
+  text-align:center;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(10px);
+}
+.search-container input{
+  width:80%;
+  max-width:300px;
+  padding:10px;
+  border-radius:25px;
+  border:none;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Member Login</h1>
+</header>
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search members by name...">
+</div>
+
+<div class="container" id="membersContainer">
+  <!-- Member cards will appear here -->
+</div>
+
+<script>
+// Mock member data
+let members = [
+  {name:'Atasha Anisha', pic:'https://randomuser.me/api/portraits/women/65.jpg'},
+  {name:'Tendo Prosper', pic:'https://randomuser.me/api/portraits/men/43.jpg'},
+  {name:'Tendo Talemwa', pic:'https://randomuser.me/api/portraits/women/44.jpg'},
+  {name:'Odong Stephen', pic:'https://randomuser.me/api/portraits/men/50.jpg'},
+  {name:'Mercy mulungi', pic:'https://randomuser.me/api/portraits/women/55.jpg'}
+];
+
+const container = document.getElementById('membersContainer');
+
+function renderMembers(filter=''){
+  container.innerHTML='';
+  members.filter(m => m.name.toLowerCase().includes(filter.toLowerCase())).forEach(m => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="profile-pic-card">
+        <img src="${m.pic}" alt="${m.name}">
+      </div>
+      <h3>${m.name}</h3>
+    `;
+    card.onclick = () => {
+      // Mock account page link
+      window.location.href = `member page.html?name=${encodeURIComponent(m.name)}`;
+    };
+    container.appendChild(card);
+  });
+}
+
+// Initial render
+renderMembers();
+
+// Search filter
+document.getElementById('searchInput').addEventListener('input', (e)=>{
+  renderMembers(e.target.value);
+});
+</script>
+
+</body>
+</html>

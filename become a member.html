@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Become a Member | SACCO</title>
+
+<style>
+:root{
+  --primary:#1e88e5;
+  --secondary:#22c55e;
+  --dark:#0f172a;
+  --light:#f8fafc;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  margin:0;
+  background:linear-gradient(135deg,#0f172a,#020617);
+  color:var(--light);
+}
+
+/* HERO */
+.hero{
+  padding:90px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,rgba(30,136,229,.25),rgba(34,197,94,.25));
+}
+
+.hero h1{
+  font-size:2.6rem;
+  margin-bottom:10px;
+}
+
+.hero p{
+  max-width:700px;
+  margin:auto;
+  font-size:1.1rem;
+  opacity:.9;
+}
+
+/* SECTIONS */
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+.section h2{
+  text-align:center;
+  margin-bottom:40px;
+  color:#38bdf8;
+}
+
+/* BENEFITS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  transition:.3s ease;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.card h3{
+  margin-top:0;
+  color:#a7f3d0;
+}
+
+/* HOW IT WORKS */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+
+.step{
+  background:rgba(30,136,229,.15);
+  border-radius:18px;
+  padding:25px;
+}
+
+.step span{
+  font-size:32px;
+  font-weight:800;
+  color:#38bdf8;
+}
+
+/* CTA */
+.cta{
+  text-align:center;
+  padding:80px 20px;
+  background:linear-gradient(135deg,#1e88e5,#22c55e);
+}
+
+.cta h2{
+  font-size:2.2rem;
+  margin-bottom:15px;
+}
+
+.cta p{
+  max-width:650px;
+  margin:auto;
+  font-size:1.1rem;
+}
+
+.cta a{
+  display:inline-block;
+  margin-top:30px;
+  padding:16px 40px;
+  background:#020617;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  border-radius:40px;
+  transition:.3s ease;
+}
+
+.cta a:hover{
+  transform:scale(1.07);
+  background:#0f172a;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  background:#020617;
+  font-size:14px;
+  opacity:.7;
+}
+
+@media(max-width:600px){
+  .hero h1{font-size:2rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Become a SACCO Member</h1>
+  <p>Join a trusted community that saves together, grows together, and supports one another financially.</p>
+</section>
+
+<!-- BENEFITS -->
+<section class="section">
+  <h2>Benefits of Membership</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>💰 Smart Savings</h3>
+      <p>Save regularly in a secure group, build discipline, and grow your financial stability.</p>
+    </div>
+    <div class="card">
+      <h3>🤝 Affordable Loans</h3>
+      <p>Access low-interest loans with flexible repayment schedules.</p>
+    </div>
+    <div class="card">
+      <h3>📈 Profit Sharing</h3>
+      <p>Earn fair shares based on how much you save.</p>
+    </div>
+    <div class="card">
+      <h3>🔔 Transparency</h3>
+      <p>Receive announcements, updates, and full visibility of your contributions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <span>1</span>
+      <h3>Request to Join</h3>
+      <p>Submit your membership request.</p>
+    </div>
+    <div class="step">
+      <span>2</span>
+      <h3>Approval</h3>
+      <p>Admins review and approve your request.</p>
+    </div>
+    <div class="step">
+      <span>3</span>
+      <h3>Start Saving</h3>
+      <p>Begin making regular contributions.</p>
+    </div>
+    <div class="step">
+      <span>4</span>
+      <h3>Enjoy Benefits</h3>
+      <p>Access loans, earn shares, and grow together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Ready to Join the SACCO?</h2>
+  <p>Take the first step toward financial growth and community support.</p>
+  <a href="request to join.html">Request to Join</a>
+</section>
+
+<footer>
+  © 2026 SACCO • Saving Together, Growing Together
+</footer>
+
+</body>
+</html>

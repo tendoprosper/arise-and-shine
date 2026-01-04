@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SACCO Admin Dashboard</title>
+<style>
+:root{
+  --primary:#1e88e5;
+  --secondary:#22c55e;
+  --dark:#0f172a;
+  --light:#f8fafc;
+  --good:#22c55e;
+  --moderate:#facc15;
+  --bad:#ef4444;
+}
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:rgba(0,0,0,0.6);
+  color:#fff;
+}
+header{
+  padding:20px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:1.8rem;color:#38bdf8;}
+header .btn{
+  background:var(--primary);
+  color:#000;
+  border:none;
+  padding:10px 20px;
+  border-radius:25px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.3s ease;
+  text-decoration:none;
+}
+header .btn:hover{transform:scale(1.05);background:var(--secondary);}
+.search-container{
+  padding:15px 20px;
+  text-align:center;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(10px);
+}
+.search-container input{
+  width:80%;
+  max-width:400px;
+  padding:12px;
+  border-radius:25px;
+  border:none;
+}
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+  padding:20px;
+}
+.card{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.5);
+  transition:.3s ease;
+  cursor:pointer;
+}
+.card:hover{transform:translateY(-5px);}
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+.card h3{
+  margin:0 0 10px 0;
+}
+.card .admin-tag{
+  display:inline-block;
+  background:var(--primary);
+  color:#000;
+  font-weight:700;
+  padding:2px 8px;
+  border-radius:10px;
+  font-size:0.8rem;
+  margin-bottom:10px;
+}
+.progress-container{
+  margin:10px 0;
+}
+.progress-bar{
+  height:15px;
+  border-radius:10px;
+  background:#333;
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  border-radius:10px;
+  transition:.5s ease;
+}
+.card table{
+  width:100%;
+  font-size:0.85rem;
+  margin-top:10px;
+  border-collapse:collapse;
+}
+.card table th, .card table td{
+  padding:5px;
+  border-bottom:1px solid rgba(255,255,255,0.2);
+  text-align:left;
+}
+.notification{
+  background:rgba(30,136,229,.2);
+  padding:15px;
+  border-radius:15px;
+  margin:10px 20px;
+  animation:fadeIn 1s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(-10px);}
+  to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SACCO Admin Dashboard</h1>
+  <a href="calculator.html" class="btn">Share Calculator</a>
+</header>
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search members by name...">
+</div>
+
+<div id="notifications"></div>
+
+<div class="container" id="membersContainer">
+  <!-- Member cards injected here -->
+</div>
+
+<script>
+// Example members data
+let members = [
+  {
+    name:'Alice Mwangi',
+    savings:50000,
+    loan:20000,
+    loanStatus:'Ongoing',
+    share:1500,
+    admin:true,
+    pic:'https://randomuser.me/api/portraits/women/65.jpg',
+    history:[
+      {date:'2026-01-01',amount:20000},
+      {date:'2026-01-15',amount:30000}
+    ]
+  },
+  {
+    name:'John Kamau',
+    savings:120000,
+    loan:0,
+    loanStatus:'No Loan',
+    share:3600,
+    admin:false,
+    pic:'https://randomuser.me/api/portraits/men/43.jpg',
+    history:[
+      {date:'2026-01-03',amount:50000},
+      {date:'2026-01-20',amount:70000}
+    ]
+  }
+];
+
+// Load new member requests from localStorage
+let requests = JSON.parse(localStorage.getItem('saccoRequests')) || [];
+
+// Render notifications for requests
+const notificationsDiv = document.getElementById('notifications');
+requests.forEach(req=>{
+  notificationsDiv.innerHTML += `<div class="notification">New Membership Request: ${req.name} (${req.phone})</div>`;
+});
+
+// Render member cards
+const container = document.getElementById('membersContainer');
+function renderMembers(filter=''){
+  container.innerHTML='';
+  members.filter(m=>m.name.toLowerCase().includes(filter.toLowerCase())).forEach(m=>{
+    let performance='good';
+    let color='var(--good)';
+    if(m.savings<50000) {performance='bad'; color='var(--bad)';}
+    else if(m.savings<100000){performance='moderate'; color='var(--moderate)';}
+
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML=`
+      ${m.admin?'<div class="admin-tag">ADMIN</div>':''}
+      <img src="${m.pic}" alt="${m.name}">
+      <h3>${m.name}</h3>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${Math.min(m.savings/1000,100)}%; background:${color}"></div>
+        </div>
+        <small>Performance: ${performance}</small>
+      </div>
+      <table>
+        <tr><th>Savings</th><td>UGX ${m.savings.toLocaleString()}</td></tr>
+        <tr><th>Loan</th><td>${m.loanStatus} (${m.loan.toLocaleString()})</td></tr>
+        <tr><th>Share</th><td>UGX ${m.share.toLocaleString()}</td></tr>
+      </table>
+    `;
+    container.appendChild(card);
+  });
+}
+renderMembers();
+
+// Search filter
+document.getElementById('searchInput').addEventListener('input', (e)=>{
+  renderMembers(e.target.value);
+});
+</script>
+
+</body>
+</html>
