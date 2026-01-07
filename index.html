@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>RISE AND SHINE SACCO</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
 :root {
   --bg: #f4f7fb;
@@ -15,7 +13,6 @@
   --primary: #0d6efd;
   --accent: #20c997;
 }
-
 body.dark {
   --bg: #0f172a;
   --text: #e5e7eb;
@@ -23,274 +20,232 @@ body.dark {
   --primary: #38bdf8;
   --accent: #22c55e;
 }
-
-* { box-sizing: border-box; }
-
+* { box-sizing: border-box; margin:0; padding:0;}
 body {
-  margin: 0;
   font-family: 'Poppins', sans-serif;
   background: var(--bg);
   color: var(--text);
+  overflow-x:hidden;
   transition: 0.4s;
 }
-
-/* ================= NAV ================= */
+/* ================= NAVBAR ================= */
 header {
   position: sticky;
   top: 0;
   background: var(--card);
   z-index: 100;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
-
 nav {
   max-width: 1200px;
-  margin: auto;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin:auto;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
-.logo {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--primary);
-}
-
+.logo { font-size:22px; font-weight:700; color:var(--primary); }
 /* Hamburger */
 .menu-toggle {
-  display: none;
-  width: 30px;
-  cursor: pointer;
+  display:none;
+  width:30px;
+  cursor:pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  height:20px;
 }
-
 .menu-toggle span {
-  display: block;
-  height: 3px;
-  background: var(--primary);
-  margin: 6px 0;
-  border-radius: 3px;
-  transition: 0.4s;
+  display:block;
+  height:3px;
+  background:var(--primary);
+  border-radius:3px;
+  transition: all 0.4s ease;
 }
-
-.menu-toggle.open span:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-.menu-toggle.open span:nth-child(2) {
-  opacity: 0;
-}
-.menu-toggle.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
-}
-
-/* Nav Links */
+.menu-toggle.open span:nth-child(1){ transform: rotate(45deg) translate(5px,5px);}
+.menu-toggle.open span:nth-child(2){ opacity:0;}
+.menu-toggle.open span:nth-child(3){ transform: rotate(-45deg) translate(5px,-5px);}
 .nav-links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  display:flex;
+  gap:20px;
+  align-items:center;
 }
-
 .nav-links a {
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 500;
-  position: relative;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:500;
+  position:relative;
 }
-
 .nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0;
-  height: 2px;
-  background: var(--primary);
-  transition: 0.3s;
+  content:"";
+  position:absolute;
+  left:0; bottom:-4px;
+  width:0; height:2px;
+  background:var(--primary);
+  transition:0.3s;
 }
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-  width: 100%;
-}
-
-.toggle {
-  cursor: pointer;
-  font-size: 18px;
-}
+.nav-links a:hover::after, .nav-links a.active::after { width:100%; }
 
 /* Mobile Nav */
-@media (max-width: 900px) {
-  .menu-toggle { display: block; }
-
+@media(max-width:900px){
+  .menu-toggle { display:flex; }
   .nav-links {
     position: fixed;
-    top: 0;
-    right: -100%;
-    width: 260px;
-    height: 100vh;
+    top:0;
+    right:-100%;
+    width:260px;
+    height:100vh;
     background: var(--card);
     flex-direction: column;
-    padding: 90px 25px;
-    gap: 18px;
-    transition: 0.4s;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+    padding:80px 20px;
+    gap:20px;
+    transition:0.4s;
+    box-shadow:-10px 0 30px rgba(0,0,0,0.2);
   }
-
-  .nav-links.show { right: 0; }
+  .nav-links.show { right:0; }
+  .nav-links a { font-size:18px; }
+  .close-btn {
+    background:transparent;
+    border:none;
+    font-size:22px;
+    position:absolute;
+    top:15px;
+    right:20px;
+    cursor:pointer;
+    color:var(--primary);
+  }
 }
 
 /* ================= HERO ================= */
 .hero {
-  max-width: 1200px;
-  margin: auto;
-  padding: 80px 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
+  max-width:1200px;
+  margin:auto;
+  padding:80px 20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
   animation: fadeUp 1s ease;
 }
-
-.hero h1 {
-  font-size: 42px;
-  color: var(--primary);
-}
-
-.hero p {
-  line-height: 1.7;
-  margin: 20px 0;
-}
-
+.hero h1 { font-size:42px; color:var(--primary); animation:fadeUp 1s ease;}
+.hero p { line-height:1.7; margin:20px 0; animation:fadeUp 1.2s ease;}
 .hero button {
-  padding: 12px 25px;
-  border: none;
+  padding:12px 25px;
+  border:none;
   background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: white;
-  font-size: 16px;
-  border-radius: 30px;
-  cursor: pointer;
+  color:white;
+  font-size:16px;
+  border-radius:30px;
+  cursor:pointer;
+  animation: pulse 2s infinite;
 }
+.hero img { width:100%; animation:float 4s ease-in-out infinite;}
 
-.hero img {
-  width: 100%;
-  animation: float 3s infinite ease-in-out;
-}
+@keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);} }
 
-@media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-}
+@media(max-width:900px){ .hero{ grid-template-columns:1fr; text-align:center;} }
 
-
-section {
+/* ================= IMAGE SCROLLER ================= */
+.image-scroller {
   max-width: 1200px;
-  margin: auto;
-  padding: 60px 20px;
+  margin: 60px auto;
+  overflow-x: hidden;
+  position: relative;
 }
-
-.section-title {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 40px;
-  color: var(--primary);
+.scroller-track {
+  display: flex;
+  gap:20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
 }
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 25px;
-}
-
-.card {
-  background: rgba(255,255,255,0.85);
+.scroller-track::-webkit-scrollbar { display:none; }
+.scroller-card{
+  flex:0 0 250px;
+  
   backdrop-filter: blur(10px);
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.454);
-  transition: 0.3s;
+  border-radius:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+  text-align:center;
+  transition: transform 0.3s;
 }
-
-body.dark .card {
-  background: rgba(17,24,39,0.85);
+.scroller-card img{
+  width:100%;
+  border-top-left-radius:20px;
+  border-top-right-radius:20px;
 }
+.scroller-card h4{ margin:50px 0; color: var(--primary);}
+.scroller-card p{ padding:0 10px 15px; font-size:14px; color:var(--text);}
+.scroller-card:hover{ transform:translateY(-5px); }
 
-.card:hover {
-  transform: translateY(-8px);
+/* ================= SECTIONS ================= */
+section{ max-width:1200px; margin:auto; padding:60px 20px;}
+.section-title { text-align:center; font-size:28px; margin-bottom:40px; color:var(--primary);}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
 }
+.card{
+  
+  backdrop-filter:blur(10px);
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.15);
+  transition:0.3s;
+}
+body.dark .card { background: rgba(17,24,39,0.85);}
+.card:hover{ transform: translateY(-8px); }
 
-
-footer {
-  text-align: center;
-  padding: 20px;
+/* ================= FOOTER ================= */
+footer{
+  text-align:center;
+  padding:20px;
   background: var(--card);
-  opacity: 0.8;
+  opacity:0.8;
 }
 
 /* ================= ANIMATIONS ================= */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
+@keyframes fadeUp{ from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+@keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-15px);} }
 
 /* ================= BACKGROUND GRAPHICS ================= */
-.bg-animation {
+.bg-animation{
   position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
 }
-
-.bg-animation span {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  opacity: 0.08;
-  border-radius: 50%;
+.bg-animation span{
+  position:absolute;
+  width:200px;
+  height:200px;
+  background: linear-gradient(135deg,var(--primary),var(--accent));
+  opacity:0.08;
+  border-radius:50%;
   animation: floatBg 25s infinite linear;
 }
-
-.bg-animation span:nth-child(1) { top: 10%; left: 5%; }
-.bg-animation span:nth-child(2) { bottom: 15%; right: 10%; animation-duration: 30s; }
-.bg-animation span:nth-child(3) { top: 50%; left: 60%; animation-duration: 35s; }
-
-@keyframes floatBg {
-  0% { transform: translateY(0) rotate(0deg); }
-  100% { transform: translateY(-120px) rotate(360deg); }
-}
+.bg-animation span:nth-child(1){ top:10%; left:5%;}
+.bg-animation span:nth-child(2){ bottom:15%; right:10%; animation-duration:30s;}
+.bg-animation span:nth-child(3){ top:50%; left:60%; animation-duration:35s;}
+@keyframes floatBg{ 0%{ transform:translateY(0) rotate(0deg);} 100%{ transform:translateY(-120px) rotate(360deg);} }
 </style>
 </head>
-
 <body>
-
-<div class="bg-animation">
-  <span></span><span></span><span></span>
-</div>
+<div class="bg-animation"><span></span><span></span><span></span></div>
 
 <header>
 <nav>
-  <div class="logo">RISE AND SHINE SACCO</div>
-
-  <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-
+  <div class="logo">BIRUNGI JOY</div>
+  <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   <div class="nav-links" id="navLinks">
     <a href="#" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#rules">Rules</a>
-    <a href="news.html">News</a>
+    <a href="#news">News</a>
+    <a href="become-member.html">Become a Member</a>
     <a href="login.html">Member Login</a>
     <a href="admin.html">Admin</a>
-    <span class="toggle" onclick="Darkmode()">🌙</span>
+    <button class="close-btn" onclick="closeMenu()">✕</button>
   </div>
 </nav>
 </header>
@@ -298,14 +253,21 @@ footer {
 <section class="hero">
   <div>
     <h1>AIM HIGH AS A LARK</h1>
-    <p>
-      RISE AND SHINE SACCO is a trusted savings group empowering members
-      through disciplined saving, affordable loans, and transparency.
-    </p>
+    <p>RISE AND SHINE SACCO empowers members through disciplined saving, affordable loans, and transparency.</p>
     <button onclick="location.href='become-member.html'">Become a Member</button>
   </div>
   <img src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png">
 </section>
+
+<!-- ================= SCROLLING IMAGE CAROUSEL ================= -->
+<div class="image-scroller">
+  <div class="scroller-track" id="scrollerTrack">
+    <div class="scroller-card"><img src="lark.jpg"></div>
+    <div class="scroller-card"><img src="j1"><h4>Loans</h4><p></p></div>
+    <div class="scroller-card"><img src="https://cdn-icons-png.flaticon.com/512/633/633759.png"></div>
+    <div class="scroller-card"><img src="https://cdn-icons-png.flaticon.com/512/3135/3135710.png"></div>
+  </div>
+</div>
 
 <section id="about">
   <h2 class="section-title">About Our SACCO</h2>
@@ -340,20 +302,26 @@ footer {
 </footer>
 
 <script>
-function toggleMenu() {
-  document.getElementById("navLinks").classList.toggle("show");
-  document.getElementById("menuToggle").classList.toggle("open");
-}
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
 
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-  localStorage.setItem("theme",
-    document.body.classList.contains("dark") ? "dark" : "light");
-}
+function toggleMenu(){ navLinks.classList.toggle('show'); menuToggle.classList.toggle('open'); }
+function closeMenu(){ navLinks.classList.remove('show'); menuToggle.classList.remove('open'); }
+document.addEventListener('click', function(e){ if(!navLinks.contains(e.target) && !menuToggle.contains(e.target)){ closeMenu(); }});
 
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("dark");
+function Darkmode(){ document.body.classList.toggle('dark'); localStorage.setItem('theme', document.body.classList.contains('dark')?'dark':'light');}
+if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');}
+
+// Auto scroll the carousel
+const track = document.getElementById('scrollerTrack');
+let scrollAmount = 0;
+function autoScroll(){
+  scrollAmount += 1;
+  if(scrollAmount > track.scrollWidth - track.clientWidth){ scrollAmount = 0; }
+  track.scrollLeft = scrollAmount;
+  requestAnimationFrame(autoScroll);
 }
+autoScroll();
 </script>
 
 </body>
