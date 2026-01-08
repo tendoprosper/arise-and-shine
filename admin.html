@@ -4,131 +4,135 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SACCO Admin Dashboard</title>
+
 <style>
 :root{
   --primary:#1e88e5;
   --secondary:#22c55e;
-  --dark:#0f172a;
-  --light:#f8fafc;
   --good:#22c55e;
   --moderate:#facc15;
   --bad:#ef4444;
 }
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background:rgba(0,0,0,0.6);
+  background:linear-gradient(120deg,#020617,#020617cc),
+             url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a');
+  background-size:cover;
+  background-attachment:fixed;
   color:#fff;
 }
+
+/* HEADER */
 header{
   padding:20px;
-  background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(10px);
   display:flex;
   justify-content:space-between;
   align-items:center;
-}
-header h1{margin:0;font-size:1.8rem;color:#38bdf8;}
-header .btn{
-  background:var(--primary);
-  color:#000;
-  border:none;
-  padding:10px 20px;
-  border-radius:25px;
-  cursor:pointer;
-  font-weight:700;
-  transition:.3s ease;
-  text-decoration:none;
-}
-header .btn:hover{transform:scale(1.05);background:var(--secondary);}
-.search-container{
-  padding:15px 20px;
-  text-align:center;
-  background:rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.6);
   backdrop-filter:blur(10px);
 }
+header h1{
+  margin:0;
+  color:#38bdf8;
+}
+.btn{
+  background:var(--primary);
+  color:#000;
+  padding:10px 20px;
+  border-radius:25px;
+  text-decoration:none;
+  font-weight:bold;
+}
+.btn:hover{background:var(--secondary)}
+
+/* SEARCH */
+.search-container{
+  padding:15px;
+  text-align:center;
+  background:rgba(0,0,0,0.5);
+}
 .search-container input{
-  width:80%;
+  width:90%;
   max-width:400px;
   padding:12px;
   border-radius:25px;
   border:none;
+  outline:none;
 }
+
+/* NOTIFICATIONS */
+.notification{
+  background:rgba(30,136,229,.25);
+  padding:15px;
+  border-radius:15px;
+  margin:10px 20px;
+  animation:fadeIn .6s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(-10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* CARDS */
 .container{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:25px;
   padding:20px;
 }
 .card{
-  background:rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.12);
   backdrop-filter:blur(12px);
   border-radius:20px;
   padding:20px;
-  box-shadow:0 15px 30px rgba(0,0,0,0.5);
-  transition:.3s ease;
-  cursor:pointer;
+  box-shadow:0 15px 30px rgba(0,0,0,0.6);
+  transition:.3s;
 }
-.card:hover{transform:translateY(-5px);}
+.card:hover{transform:translateY(-6px)}
+
 .card img{
   width:100%;
-  height:150px;
+  height:160px;
   object-fit:cover;
   border-radius:15px;
-  margin-bottom:15px;
+  margin-bottom:10px;
 }
-.card h3{
-  margin:0 0 10px 0;
-}
-.card .admin-tag{
+.admin-tag{
   display:inline-block;
   background:var(--primary);
   color:#000;
-  font-weight:700;
-  padding:2px 8px;
+  font-weight:bold;
+  padding:4px 10px;
   border-radius:10px;
-  font-size:0.8rem;
-  margin-bottom:10px;
-}
-.progress-container{
-  margin:10px 0;
+  font-size:.8rem;
+  margin-bottom:6px;
 }
 .progress-bar{
-  height:15px;
-  border-radius:10px;
+  height:14px;
   background:#333;
+  border-radius:10px;
   overflow:hidden;
+  margin:8px 0;
 }
 .progress-fill{
   height:100%;
-  width:0%;
-  border-radius:10px;
-  transition:.5s ease;
+  transition:.5s;
 }
-.card table{
+table{
   width:100%;
-  font-size:0.85rem;
-  margin-top:10px;
+  font-size:.85rem;
   border-collapse:collapse;
 }
-.card table th, .card table td{
-  padding:5px;
-  border-bottom:1px solid rgba(255,255,255,0.2);
+th,td{
+  padding:6px 4px;
+  border-bottom:1px solid rgba(255,255,255,.2);
   text-align:left;
-}
-.notification{
-  background:rgba(30,136,229,.2);
-  padding:15px;
-  border-radius:15px;
-  margin:10px 20px;
-  animation:fadeIn 1s ease;
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(-10px);}
-  to{opacity:1;transform:translateY(0);}
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -142,13 +146,11 @@ header .btn:hover{transform:scale(1.05);background:var(--secondary);}
 
 <div id="notifications"></div>
 
-<div class="container" id="membersContainer">
-  <!-- Member cards injected here -->
-</div>
+<div class="container" id="membersContainer"></div>
 
 <script>
-// Example members data
-let members = [
+// MEMBERS DATA (FIXED + IMAGES)
+const members = [
   {
     name:'Atasha Anisha',
     savings:50000,
@@ -156,20 +158,20 @@ let members = [
     loanStatus:'Ongoing',
     share:1500,
     admin:true,
-    pic:'Ace.jpg',
-    history:
+    pic:'images/Ace.jpg',
+    history:[
       {date:'2026-01-01',amount:20000},
       {date:'2026-01-15',amount:30000}
     ]
   },
   {
-    name:'Tando prosper',
+    name:'Tando Prosper',
     savings:120000,
     loan:0,
     loanStatus:'No Loan',
     share:3600,
     admin:false,
-    pic:'T.jpg',
+    pic:'images/T.jpg',
     history:[
       {date:'2026-01-03',amount:50000},
       {date:'2026-01-20',amount:70000}
@@ -177,54 +179,65 @@ let members = [
   }
 ];
 
-// Load new member requests from localStorage
-let requests = JSON.parse(localStorage.getItem('saccoRequests')) || [];
+// DEMO REQUESTS
+localStorage.setItem('saccoRequests',JSON.stringify([
+  {name:'Birungi Joy',phone:'077XXXXXX'}
+]));
 
-// Render notifications for requests
+const requests = JSON.parse(localStorage.getItem('saccoRequests')) || [];
 const notificationsDiv = document.getElementById('notifications');
-requests.forEach(req=>{
-  notificationsDiv.innerHTML += `<div class="notification">New Membership Request: ${req.name} (${req.phone})</div>`;
+
+requests.forEach(r=>{
+  notificationsDiv.innerHTML+=`
+    <div class="notification">
+      New Membership Request: <strong>${r.name}</strong> (${r.phone})
+    </div>`;
 });
 
-// Render member cards
-const container = document.getElementById('membersContainer');
+// RENDER MEMBERS
+const container=document.getElementById('membersContainer');
+
 function renderMembers(filter=''){
   container.innerHTML='';
-  members.filter(m=>m.name.toLowerCase().includes(filter.toLowerCase())).forEach(m=>{
-    let performance='good';
-    let color='var(--good)';
-    if(m.savings<50000) {performance='bad'; color='var(--bad)';}
-    else if(m.savings<100000){performance='moderate'; color='var(--moderate)';}
+  members
+    .filter(m=>m.name.toLowerCase().includes(filter.toLowerCase()))
+    .forEach(m=>{
+      let color='var(--good)',status='Good';
+      if(m.savings<50000){color='var(--bad)';status='Bad'}
+      else if(m.savings<100000){color='var(--moderate)';status='Moderate'}
 
-    const card = document.createElement('div');
-    card.className='card';
-    card.innerHTML=`
-      ${m.admin?'<div class="admin-tag">ADMIN</div>':''}
-      <img src="${m.pic}" alt="${m.name}">
-      <h3>${m.name}</h3>
-      <div class="progress-container">
+      const card=document.createElement('div');
+      card.className='card';
+      card.innerHTML=`
+        ${m.admin?'<div class="admin-tag">ADMIN</div>':''}
+        <img src="${m.pic}"
+             onerror="this.src='https://i.pravatar.cc/300?u=${m.name}'">
+        <h3>${m.name}</h3>
+
         <div class="progress-bar">
-          <div class="progress-fill" style="width:${Math.min(m.savings/1000,100)}%; background:${color}"></div>
+          <div class="progress-fill"
+               style="width:${Math.min(m.savings/1000,100)}%;
+               background:${color}">
+          </div>
         </div>
-        <small>Performance: ${performance}</small>
-      </div>
-      <table>
-        <tr><th>Savings</th><td>UGX ${m.savings.toLocaleString()}</td></tr>
-        <tr><th>Loan</th><td>${m.loanStatus} (${m.loan.toLocaleString()})</td></tr>
-        <tr><th>Share</th><td>UGX ${m.share.toLocaleString()}</td></tr>
-      </table>
-    `;
-    container.appendChild(card);
-  });
+        <small>Performance: ${status}</small>
+
+        <table>
+          <tr><th>Savings</th><td>UGX ${m.savings.toLocaleString()}</td></tr>
+          <tr><th>Loan</th><td>${m.loanStatus} (UGX ${m.loan.toLocaleString()})</td></tr>
+          <tr><th>Share</th><td>UGX ${m.share.toLocaleString()}</td></tr>
+        </table>
+      `;
+      container.appendChild(card);
+    });
 }
 renderMembers();
 
-// Search filter
-document.getElementById('searchInput').addEventListener('input', (e)=>{
+// SEARCH
+document.getElementById('searchInput').addEventListener('input',e=>{
   renderMembers(e.target.value);
 });
 </script>
 
 </body>
 </html>
-
